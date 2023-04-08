@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "dev": " tailwindcss -i offyt_app/src/tailwind-input.css -o offyt_app/static/css/offyt_app-ui.css --watch"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.3.1"
+  }
+}
