@@ -27,6 +27,9 @@ def playlist_view(request):
         playlist = Playlist(f'https://www.youtube.com/playlist?list={search}')
 
 
+        directory = playlist.title
+
+
         for links in playlist.video_urls:
             playlist_links.append(links)
 
@@ -51,10 +54,8 @@ def playlist_view(request):
 
             except:
                 pass
-    
-        return redirect('/')
-    
-
+            
 
     context = {'playlist_details': playlist_video_info}
+    
     return render(request, 'base.html', context)
