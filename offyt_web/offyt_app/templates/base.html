@@ -25,10 +25,10 @@
 
     <title>offyt - home</title>
 </head>
-<body class="debug-screens bg-slate-200 dark:bg-zinc-900 transition-property: all; duration-200">
+<body class="debug-screens bg-slate-200 dark:bg-zinc-900">
 
 <div style="display: grid; place-items: center;">
-<nav class= "border-gray-200 w-3/4 sm:w-4/5 mb-16">
+<nav class= "border-gray-200 w-3/4 mb-16">
   <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
     <a href="" class="flex items-center">
         <img src="{% static 'images/offyt_white.svg' %}" class="h-10 mr-3" alt="offyt logo" />
@@ -61,7 +61,7 @@
 
 <div class="input_div mb-12" style="display: grid; place-items: center;">
   <div class="w-3/4">
-    <h1 class="text-2xl text-zinc-800 dark:text-zinc-300 tracking-tight font-roboto mb-8">Paste Youtube Playlist ID (text after playlist?list=..)</h1>
+    <h1 class="lg:text-2xl text-xl text-zinc-800 dark:text-zinc-300 tracking-tight font-roboto mb-8">Paste Youtube Playlist ID (text after playlist?list=..)</h1>
     <form action="/search" method="get" id="playlist_search">   
     <div class="relative">
         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -69,9 +69,9 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
               
         </div>
-        <input type="search" id="search" name="url" class="block font-kanit w-full p-4 pl-10 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-red-500 focus:border-red-500 dark:bg-zinc-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500" placeholder="Ex: PLwp75lRfJrvaXFe5Eh1SqBOAFknfIjSp7" required>
+        <input type="search" id="search" name="id" class="block font-kanit w-full p-4 pl-10 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-red-500 focus:border-red-500 dark:bg-zinc-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500" placeholder="Ex: PLwp75lRfJrvaXFe5Eh1SqBOAFknfIjSp7" required>
         
-        <button type="submit" class="text-white absolute font-kanit right-2.5 bottom-2.5 bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-lg px-4 py-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Search</button>
+        <button type="submit" class="text-white absolute font-kanit right-2.5 bottom-2.5 bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-lg px-4 py-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Search!</button>
     </div>
     <label for="remember" class="ml-2 text-lg font-medium text-gray-900 dark:text-gray-300"><b>*note*</b> playlist visibility should be public</label>
     </form>
@@ -81,13 +81,57 @@
 
 <div class="playlist-content" style="display: grid; place-items: center;">
   <div class="w-3/4">
-    <h1 class="text-2xl text-zinc-800 dark:text-zinc-300 font-roboto mb-8">Videos in Test Playlist:</h1>
+    <div class="lg:flex gap-4 sm:justify-between">
+      {% for detail in generated_videos %}
+        <h1 class="lg:text-2xl text-xl text-zinc-800 dark:text-zinc-300 font-roboto mb-8">Videos in {{ detail.playlist_name }} :</h1>
+
+        <ul class="flex gap-4 lg:text-xl text-lg text-zinc-800 dark:text-zinc-300 font-roboto tracking-tighter">
+          <li><h1>Total Fetched: {{ detail.total_generated }}</h1></li>
+
+          <li><h1>Failed to Fetch: {{ detail.exception_check }}</h1></li>
+        </ul>
+      {% endfor %}
+    </div>
+
+    <div class="flex flex-wrap justify-between ">
+      <form action="/search" method="get" id="playlist_search">   
+        <div class="relative">
+            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                  
+            </div>
+            <input type="search" id="search" name="id" class="block font-kanit w-full p-4 pl-10 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-red-500 focus:border-red-500 dark:bg-zinc-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500" placeholder="Ex: PLwp75lRfJrvaXFe5Eh1SqBOAFknfIjSp7" required>
+            
+            <button type="submit" class="text-white absolute font-kanit right-2.5 bottom-2.5 bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-lg px-4 py-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Search!</button>
+        </div>
+      </form>
+
+      <div class="inline-flex rounded-md shadow-sm" role="group">
+        <button type="button" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-l-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
+          <svg aria-hidden="true" class="w-4 h-4 mr-2 fill-current" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd"></path></svg>
+          Profile
+        </button>
+        <button type="button" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
+          <svg aria-hidden="true" class="w-4 h-4 mr-2 fill-current" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M5 4a1 1 0 00-2 0v7.268a2 2 0 000 3.464V16a1 1 0 102 0v-1.268a2 2 0 000-3.464V4zM11 4a1 1 0 10-2 0v1.268a2 2 0 000 3.464V16a1 1 0 102 0V8.732a2 2 0 000-3.464V4zM16 3a1 1 0 011 1v7.268a2 2 0 010 3.464V16a1 1 0 11-2 0v-1.268a2 2 0 010-3.464V4a1 1 0 011-1z"></path></svg>
+          Settings
+        </button>
+        <button type="button" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-r-md hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
+          <svg aria-hidden="true" class="w-4 h-4 mr-2 fill-current" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M2 9.5A3.5 3.5 0 005.5 13H9v2.586l-1.293-1.293a1 1 0 00-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 15.586V13h2.5a4.5 4.5 0 10-.616-8.958 4.002 4.002 0 10-7.753 1.977A3.5 3.5 0 002 9.5zm9 3.5H9V8a1 1 0 012 0v5z" clip-rule="evenodd"></path></svg>
+          Downloads
+        </button>
+      </div>
+
+    </div>
+    
+    
+
     {% for video in playlist_details %}
-    <div class="divide-y divide-solid divide-red-500">
+    <div class="divide-y divide-dotted divide-gray-500">
       <div>
-        <a href="#" class="block p-4 bg-zinc-900 dark:bg-gray-200 shadow">
-        <h5 class="font-roboto mb-2 text-xl font-bold tracking-tight dark:text-gray-900 text-gray-100">{{ video.title }}</h5>
-        <p class="text-lg text-gray-200 dark:text-gray-800">Author: {{ video.author }}</p>
+        <a href="{{ video.link }}" target="_blank" rel="noopener noreferrer" class="block lg:p-4 p-2 bg-zinc-900 dark:bg-gray-200 shadow">
+        <h5 class="font-roboto mb-2 lg:text-xl text-lg font-bold tracking-tight dark:text-gray-900 text-gray-100">{{ video.title }}</h5>
+        <p class="lg:text-lg text-md text-gray-200 dark:text-gray-800">Author: {{ video.author }}</p>
       </a>
       </div>
       <div>
@@ -96,7 +140,6 @@
 
   </div>
 </div>
-
 
 
 <!-- MIT License Modal -->
@@ -187,11 +230,6 @@
                   <span class="self-center flex gap-2 text-2xl font-semibold whitespace-nowrap text-gray-900 dark:text-white font-kanit">Github - Shaam-k</span>
               </p>
           </div>
-          <!-- Modal footer -->
-          <div class="flex items-center p-6 space-x-2 rounded-b dark:border-gray-600">
-              <button data-modal-hide="contact-license" type="button" class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-bold font-roboto rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:red-blue-800">I accept</button>
-
-          </div>
       </div>
   </div>
 </div>
@@ -219,7 +257,7 @@
           </ul>
       </div>
       <hr class="my-6 border-gray-500 sm:mx-auto dark:border-gray-700 lg:my-8" />
-      <span class="block text-md text-gray-500 sm:text-center dark:text-gray-400">© 2023 <a href="https://flowbite.com/" class="hover:underline">offyt</a></span>
+      <span class="md:block hidden text-md text-gray-500 sm:text-center dark:text-gray-400">© 2023 <a href="#">offyt</a></span>
   </div>
 </footer>
 
