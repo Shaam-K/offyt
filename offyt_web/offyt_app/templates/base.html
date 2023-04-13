@@ -25,7 +25,7 @@
 
     <title>offyt - home</title>
 </head>
-<body class="debug-screens bg-slate-200 dark:bg-zinc-900">
+<body class="debug-screens bg-slate-200 dark:bg-zinc-900 transition-colors duration-300">
 
 <div style="display: grid; place-items: center;">
 <nav class= "border-gray-200 w-3/4 mb-16">
@@ -81,7 +81,7 @@
 
 <div class="playlist-content" style="display: grid; place-items: center;">
   <div class="w-3/4">
-    <div class="lg:flex gap-4 sm:justify-between">
+    <div class="lg:flex gap-4 sm:justify-between mb-8">
       {% for detail in generated_videos %}
         <h1 class="lg:text-2xl text-xl text-zinc-800 dark:text-zinc-300 font-roboto mb-8">Videos in {{ detail.playlist_name }} :</h1>
 
@@ -93,8 +93,8 @@
       {% endfor %}
     </div>
 
-    <div class="flex flex-wrap justify-between ">
-      <form action="/search" method="get" id="playlist_search">   
+    <div class="flex justify-between mb-8">
+      <form action="/search/video" method="get" id="fuzzy_vid_search" class="w-2/3 mr-12">   
         <div class="relative">
             <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                 <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -108,17 +108,15 @@
       </form>
 
       <div class="inline-flex rounded-md shadow-sm" role="group">
-        <button type="button" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-l-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
-          <svg aria-hidden="true" class="w-4 h-4 mr-2 fill-current" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd"></path></svg>
-          Profile
-        </button>
         <button type="button" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
-          <svg aria-hidden="true" class="w-4 h-4 mr-2 fill-current" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M5 4a1 1 0 00-2 0v7.268a2 2 0 000 3.464V16a1 1 0 102 0v-1.268a2 2 0 000-3.464V4zM11 4a1 1 0 10-2 0v1.268a2 2 0 000 3.464V16a1 1 0 102 0V8.732a2 2 0 000-3.464V4zM16 3a1 1 0 011 1v7.268a2 2 0 010 3.464V16a1 1 0 11-2 0v-1.268a2 2 0 010-3.464V4a1 1 0 011-1z"></path></svg>
-          Settings
+          <svg aria-hidden="true" class="w-4 h-4 mr-2 fill-current" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path clip-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" fill-rule="evenodd"></path>
+          </svg>
+          Select All
         </button>
-        <button type="button" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-r-md hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
+        <button type="submit" form="download_video" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-r-md hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
           <svg aria-hidden="true" class="w-4 h-4 mr-2 fill-current" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M2 9.5A3.5 3.5 0 005.5 13H9v2.586l-1.293-1.293a1 1 0 00-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 15.586V13h2.5a4.5 4.5 0 10-.616-8.958 4.002 4.002 0 10-7.753 1.977A3.5 3.5 0 002 9.5zm9 3.5H9V8a1 1 0 012 0v5z" clip-rule="evenodd"></path></svg>
-          Downloads
+          Download
         </button>
       </div>
 
@@ -129,12 +127,16 @@
     {% for video in playlist_details %}
     <div class="divide-y divide-dotted divide-gray-500">
       <div>
-        <a href="{{ video.link }}" target="_blank" rel="noopener noreferrer" class="block lg:p-4 p-2 bg-zinc-900 dark:bg-gray-200 shadow">
-        <h5 class="font-roboto mb-2 lg:text-xl text-lg font-bold tracking-tight dark:text-gray-900 text-gray-100">{{ video.title }}</h5>
-        <p class="lg:text-lg text-md text-gray-200 dark:text-gray-800">Author: {{ video.author }}</p>
-      </a>
+        <form action="get" id="download_video" class="flex justify-between lg:p-4 p-2 bg-zinc-900 dark:bg-gray-200 shadow">
+          <div class="block">
+            <h5 class="font-roboto mb-2 lg:text-xl text-lg font-bold tracking-tight dark:text-gray-900 text-gray-100">{{ video.title }}</h5>
+            <p class="lg:text-lg text-md text-gray-200 dark:text-gray-800">Author: {{ video.author }}</p>
+          </div>
+          <div>
+            <input id="default-checkbox" form="download_video" class="video_check" required type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+           </div>
+        </form>
       </div>
-      <div>
       {% endfor %}
     </div>
 
@@ -221,12 +223,12 @@
           <div class="p-6 space-y-6">
               <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400 font-kanit hover:translate-x-6 transition-transform ease-in-out duration-300">
                 <a href="https://www.linkedin.com/in/shaam-dev/" target="_blank" rel="noopener noreferrer" class="flex items-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="white" class="h-7 w-7 mr-2" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="h-7 w-7 mr-2" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
                   <span class="self-center flex gap-2 text-2xl font-semibold whitespace-nowrap text-gray-900 dark:text-white font-kanit">Linkedin - Shaam</span>
               </p>
               <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400 font-kanit hover:translate-x-6 transition-transform ease-in-out duration-300">
                 <a href="https://github.com/Shaam-K" target="_blank" rel="noopener noreferrer"  class="flex items-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="white" class="h-7 w-7 mr-2" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="h-7 w-7 mr-2" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
                   <span class="self-center flex gap-2 text-2xl font-semibold whitespace-nowrap text-gray-900 dark:text-white font-kanit">Github - Shaam-k</span>
               </p>
           </div>
