@@ -2,3 +2,18 @@
     width: 100%;
     margin-top: 5rem;
 }
+
+.vid_search_cont {
+    display: none;
+}
+
+nav {
+    height: 20vh;
+}
+
+
+@media only screen and (max-width: 770px) {
+    nav {
+      height: auto;
+    }
+}

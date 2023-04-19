@@ -17,10 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from offyt_app.views import home_view,playlist_view
+from offyt_app.views import home_view,playlist_view,playlist_download
 
 urlpatterns = [
     path('', home_view),
     path('search/', playlist_view, name="playlist_search"),
+    path('search/download', playlist_download, name="download_video"),
     path('admin/', admin.site.urls),
 ]

@@ -65,7 +65,7 @@ def playlist_view(request):
         video_status = []
 
         playlist_schema = {
-            'playlist_name ': str(directory),
+            'playlist_name ': str(playlist.title),
             'exception_check': exception_count,
             'total_generated': generated_links
         }
@@ -77,4 +77,17 @@ def playlist_view(request):
 
     context = {'playlist_details': playlist_video_info, 'generated_videos': video_status}
     
+    return render(request, 'base.html', context)
+
+
+def playlist_download(request):
+
+    if request.method == "GET":
+        video_download = list(request.GET['check_vid'])
+
+        for item in video_download:
+            print(item, end="")
+
+    context = {}
+
     return render(request, 'base.html', context)

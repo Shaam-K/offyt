@@ -1,31 +1,23 @@
 var select_text = document.getElementById('sel_desel_text');
 
+var videos_checkbox = document.querySelectorAll(".video_check");
 
 var sel = false;
 
-
 var check_required = true;
 
+var check_count = 0;
+
 function no_of_checks() {
-    var check_count = 0;
-    var ele_count=document.querySelectorAll(".video_check");
 
-    for(var i=0; i<ele_count.length; i++) {
+    for(var i=0; i<videos_checkbox.length; i++) {
 
-        if(ele_count[i].type == 'checkbox' && ele_count[i].checked == true) {
+        if(videos_checkbox[i].type == 'checkbox' && videos_checkbox[i].checked == true) {
             check_count++;
         }
-
-    }
-
-    if (check_count > 0) {
-        check_required = false;
     }
 }
 
-function required_toggle() {
-    const input_check = document.getElementById('first_name');
-}
 
 function select_all(){  
     var ele=document.querySelectorAll(".video_check");
