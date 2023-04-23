@@ -20,7 +20,7 @@ from django.urls import path
 from offyt_app.views import home_view,playlist_view,playlist_download
 
 urlpatterns = [
-    path('', home_view),
+    path('', home_view, name="home"),
     path('search/', playlist_view, name="playlist_search"),
     path('search/download', playlist_download, name="download_video"),
     path('admin/', admin.site.urls),
